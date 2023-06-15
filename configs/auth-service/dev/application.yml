@@ -1,3 +1,29 @@
-server:
-  port : 8081
- 
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=postgres
+    username: postgres
+    password: admin
+  jpa:
+    database: postgresql
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  config:
+    import: "optional:configserver:"
+
+  liquibase:
+    default-schema: postgres
+    liquibase-schema: public
+    enabled: true
+    user: postgres
+    password: admin
+    change-log: classpath:db/changelog/changelog-v1.0.xml
